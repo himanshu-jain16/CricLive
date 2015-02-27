@@ -96,10 +96,13 @@
     var yqlCallback = function(data) {
 	var x;
 	var y;
-	if(System.Gadget.Settings.read("matchsel") == 0 || System.Gadget.Settings.read("matchsel") == 1) //Match 1 or 2, If selected from settings
+	if(System.Gadget.Settings.read("matchsel") == "0" || System.Gadget.Settings.read("matchsel") == "1") //Match 1 or 2, If selected from settings
 	{
 	mid=System.Gadget.Settings.read("matchsel");
 	}
+	
+	
+	
 	
         if (data.query.results.Scorecard.constructor === Array) {			//it multiple matches are going on
 			
@@ -395,7 +398,10 @@
 		System.Gadget.Settings.write("sound5",document.getElementById("team1-wicket").innerHTML);
 		System.Gadget.Settings.write("sound6",document.getElementById("team2-wicket").innerHTML);
 	
-	
+		if(System.Gadget.Settings.read("soundgadget") != "0" && System.Gadget.Settings.read("soundgadget") != "1")	//sound enabled by default
+		{
+		System.Gadget.Settings.write("soundgadget",1);
+		}
 
     };
 	
