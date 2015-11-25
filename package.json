@@ -1,0 +1,10 @@
+{
+	"name": "simple-text-editor",
+	"main": "./html/index.html",
+    "window": {
+    "transparent": false,
+    "frame": true,
+    "toolbar": true
+  }
+    
+}
