@@ -10,11 +10,13 @@ var cheerio = require('cheerio');
 var app     = express();
 
 var driver = require('node-phantom-simple');
-
-
     
+ 
+    
+    var scrapeddata = {};
     url = 'http://www.espncricinfo.com/';
 
+function updateCache() {
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
@@ -56,12 +58,11 @@ var driver = require('node-phantom-simple');
                                 var h2Arr = [];
                      
                                 $('.innings-information').each(function () { h2Arr.push($(this).html()); });
-                     
+                                scrapeddata = JSON.parse(h2Arr);
                                 return {
                                   h2: h2Arr
                                 };
                               }, function (err,result) {
-                                console.log(result);
                                 browser.exit();
                               });
                             }, 5000);
@@ -71,6 +72,8 @@ var driver = require('node-phantom-simple');
                     });
                  setTimeout(function(){
                         //waiting for the jquery to load
+                        //scrapeddata = h2Arr;
+
                     }, 5000);
 
                 } //END FOR LOOP EACH MATCH URL
@@ -85,10 +88,18 @@ var driver = require('node-phantom-simple');
            
             //console.log(json);
         }
-    })
+    }); // end of request
+}
+
+//Update cache every 60 secs.
+setInterval(updateCache, 10000);
                             
 
-
+app.get('/myendpoint', function(req, res) {
+    console.log("GET scrapeddata");
+    console.log(scrapeddata);
+    res.json(scrapeddata);
+        })
 
 
 menu.append(new gui.MenuItem({
@@ -129,3 +140,5 @@ document.addEventListener('keyup', function (e) {
 	gui.Window.open('notes.html');
     }
 });
+
+app.listen(3001);

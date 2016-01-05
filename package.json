@@ -1,5 +1,5 @@
 {
-	"name": "simple-text-editor",
+	"name": "CricLive",
 	"main": "./html/index.html",
     "window": {
     "transparent": false,
