@@ -10,17 +10,20 @@
     
     
 </head>
-<body id="appbody" ng-controller="MainController" ng-init="getProductData()">
+<body id="appbody">
  <input id="open" type="file" style="display:none" accept="text/*"/>
 <input id="save" type="file" nwsaveas style="display:none" accept="text/*" />
 
 {{asd}}
-<textarea id="editor" ></textarea>
+</br></br>
+<div id="matches"  ng-controller="MainController" ng-init="getMatches()">  
+  <select ng-change="getMatchData(selectedMatch)" ng-model="selectedMatch" ng-options="match for match in matches"><option value="">---Please select---</option></select>
+</div>
 
-</br></br></br></br>
 
-<textarea id="editor1" ></textarea>
-<input type="text" id="txt1"></input>
+
+</br></br>
+
 
 </body>
 </html>
