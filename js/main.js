@@ -23,10 +23,10 @@ var scrapedMatchData = [];
 
 url = 'http://www.espncricinfo.com/';
 
-function getMatchUrl() {
+function getMatchUrl(callback) {
     request(url, function(error, response, html){
         if(!error){
-            matches = [];
+            //var matches = [];
             var $ = cheerio.load(html);
 
             var title, release, rating;
@@ -46,14 +46,13 @@ function getMatchUrl() {
 
                 }
             });
+            callback();
+
         }
     });
-     setTimeout(function(){
-        //waiting for matches url
-    }, 2000); 
 }
 
-function getMatchData(matchurl) {
+function getMatchData(matchurl,callback) {
     console.log("url",matchurl);
     driver.create({ path: require('phantomjs').path }, function (err, browser) {
       return browser.createPage(function (err, page) {
@@ -72,7 +71,7 @@ function getMatchData(matchurl) {
                 $('.innings-information').each(function () { inningsinfo.push($(this).html()); });
                 $('.score-table').each(function () { scoretable.push($(this).html()); });
                 $('.recent-overs').each(function () { recentovers.push($(this).html()); });
-                console.log("inningsinfo",inningsinfo);
+                //console.log("inningsinfo",inningsinfo);
 
                 return{innings_info:inningsinfo,
                         score_table:scoretable,
@@ -80,15 +79,13 @@ function getMatchData(matchurl) {
               }, function (err,result) {
                 scrapedMatchData = result;
                 browser.exit();
+                callback();
               });
-            }, 10000);
+            }, 5000);
           });
           });
       });
-    });
- setTimeout(function(){
-        //waiting for jquery to load
-    }, 5000);    
+    });   
 }
 
 //Update cache every 60 secs.
@@ -96,15 +93,17 @@ function getMatchData(matchurl) {
                             
 
 app.get('/getallmatches', function(req, res) {
-    getMatchUrl();
-    res.json(matches);
+    getMatchUrl(function(){
+        console.log(matches);
+        res.json(matches);
+    });
 });
 
 app.post('/getmatchdata', function(req, res) {
-    console.log("KONSA MATCH");
     var matchurl = req.body.matchurl;
-    getMatchData(matchurl);
-    res.json(scrapedMatchData);
+    getMatchData(matchurl,function(){
+        res.json(scrapedMatchData);
+    });
 });
 
 
