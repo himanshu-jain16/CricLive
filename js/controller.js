@@ -15,7 +15,6 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 		var selectedmatch = {"matchurl":selectedmatchip};
 		(function tick() {
 	 		$http.post('http://localhost:3001/getmatchdata',selectedmatch).success(function(response){
- 			console.log("SERVER NE KYA BHEJA");
  			console.log(response);
  			var inningsInfoObject = document.createElement('div');
  			inningsInfoObject.innerHTML = response.innings_info;
@@ -25,7 +24,9 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
  			scoreTableObject.innerHTML = response.score_table;
  			scoreTableObject = $(scoreTableObject);
 
- 			var recentOversObject = $(response.recent_overs);
+ 			var recentOversObject = document.createElement('div');
+ 			recentOversObject.innerHTML = response.recent_overs;
+ 			recentOversObject = $(recentOversObject);
 
  			
  			$scope.team1name = inningsInfoObject.children(".team-1-name").clone().children().remove().end().text().trim();
@@ -72,9 +73,28 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 			}
 			console.log($scope.bowlerStats);
 
+			console.log(recentOversObject);
 
+			$scope.recentOvers = [];
+			var recentOversCount = recentOversObject[0].childElementCount -2;
+			console.log("overs",recentOversCount);
+			for(i=1;i<=recentOversCount;i++)
+			{
+				var tempover = [];
+				console.log(recentOversObject[0].children[i]);
+				console.log(i);
 
-			// $scope.batsmen2=
+				balls = recentOversObject[0].children[i].getElementsByTagName("li");
+				console.log("baalls",balls.length);
+				for(j=0;j<balls.length;j++)
+				{
+					tempover.push(balls[j].innerHTML.trim());
+				}
+
+				$scope.recentOvers.push(tempover);
+
+			}
+			console.log($scope.recentOvers);
 			 $timeout(tick, 10000);
 			
 		});
