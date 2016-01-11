@@ -3,8 +3,10 @@
 	"main": "./html/index.html",
     "window": {
     "transparent": false,
-    "frame": true,
-    "toolbar": true
+    "frame": false,
+    "toolbar": false,
+    "width":350,
+    "height":520
   }
     
 }

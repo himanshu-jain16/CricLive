@@ -17,9 +17,9 @@ var driver = require('node-phantom-simple');
  
 var matches=[];
 var scrapedMatchData = [];
-// var teamNameAndScores = "";
-// var batsmenAndBowlerStats="";
-// var runsInrecentOver= "";
+
+var appWidth = 350;
+//window.moveTo(window.screen.availWidth - appWidth - 10,60);
 
 url = 'http://www.espncricinfo.com/';
 

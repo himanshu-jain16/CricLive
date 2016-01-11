@@ -4,25 +4,215 @@
     <title>Simple Text Editor</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <script src="../js/main.js"></script>
     <script src="../js/controller.js"></script>
 
+    <script type="text/javascript">
+
+    function showBowlers() {
+    window.resizeTo( 350,800 );
+    jQuery('#bowlers').show(2000);
+    document.getElementById("appbody").style.height = "800px";
+    document.getElementById("maincontainer").style.height = "800px";
+    jQuery('#bowlers_show').toggle('show');
+    jQuery('#bowlers_hide').toggle('show');
+    }
+    function hideBowlers() {
+    window.resizeTo( 350, 520 );
+    jQuery('#bowlers').hide(2000);
+    document.getElementById("appbody").style.height = "520px";
+    document.getElementById("maincontainer").style.height = "520px";
+    jQuery('#bowlers_hide').toggle('show');
+    jQuery('#bowlers_show').toggle('show');
+
+    }
+
+    function closeWindow()
+    {
+        window.close();    
+    }
+
+    </script>
+    <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        width:350px;
+        height:520px; 
+        
+    }
+    p {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    div {
+        float: left;
+    }
+    .container {
+        position: relative;
+        background-color: #000000;
+        width: 350px;
+        height: 520px;
+        padding: 15px;
+        -moz-box-shadow: 1px 1px 10px rgba(255, 255, 255, .8);
+        -webkit-box-shadow: 1px 1px 10px rgba(255, 255, 255, .8);
+        -o-box-shadow: 1px 1px 10px rgba(255, 255, 255, .8);
+        box-shadow: 1px 1px 10px rgba(255, 255, 255, .8);
+        border-radius: 5px;
+    }
+    .header-img
+    {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+    .loading-img {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        margin-top: -16px;
+        margin-left: -16px;
+    }
+    .team {
+        width: 120px;
+        float: left;
+        text-align: center;
+    }
+    .icc-logo {
+        width: 60px;
+        float: left;
+        text-align: center;
+    }
+    .icc-logo img {
+        width: 50px;
+        height: auto;
+        float: left;
+    }
+    .team1-name,
+    .team2-name {
+        color: #0097A7;
+        font-size: 20px;
+    }
+    .status {
+        color: #0097A7;
+    }
+    .team1-score,
+    .team2-score {
+        font-style: italic;
+    }
+    .individual-score {
+        margin-top: 15px;
+    }
+    .player {
+        background-color: #009688;
+        font-size: 14px;
+        font-weight: 400;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        margin-left: 15px;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, .8);
+        width:250px;
+    }
+
+    .fa {
+          -webkit-app-region: no-drag;
+          display: block;
+        text-align: center;
+
+    }
+
+
+    .list-inline>li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    }
     
-    
+    #bowler_table,#bowler_table td{
+        border-color: white;
+    }
+    </style>
+
 </head>
 <body id="appbody">
- <input id="open" type="file" style="display:none" accept="text/*"/>
-<input id="save" type="file" nwsaveas style="display:none" accept="text/*" />
 
-{{asd}}
-</br></br>
-<div id="matches"  ng-controller="MainController" ng-init="getMatches()">  
-  <select ng-change="getMatchData(selectedMatch)" ng-model="selectedMatch" ng-options="match for match in matches"><option value="">---Please select---</option></select>
-</div>
+<div class="container" id="maincontainer" ng-controller="MainController as cric" ng-init="getMatches()">
+    <div id="widgetcontrol" style="width:300px">
+        <ul class="list-inline pull-right">
+         <li><i class="fa fa-volume-up"></i> <!----  volume-off alternate on click--></i></li>         
+         <li><i class="fa fa-toggle-down"></i> <!----  toggle-up alternate on click--></i></li>
+         <li><i href="javascript:void(0)"  onclick="closeWindow()" class="fa fa-power-off"></i></li>
+       </ul>
 
+    </div>
+    </br>
+    <div id="matches"  >  
+      <select style="width:300px;" ng-change="getMatchData(selectedMatch)" ng-model="selectedMatch" ng-options="match for match in matches"><option value="">---Please select---</option></select>
+    </div>
+        
+        <img src="../img/bk.png" class="header-img">
+        <div class="team team1">
+            <p class="team1-name" id="team1-name">{{team1name}}</p>
+            <p class="team1-score">{{team1score}}</p>
+            
+        </div>
+        <div class="icc-logo">
+            <img src="../img/logo.png" alt="VS">
+        </div>
+        <div class="team team2">
+            <p class="team2-name" id="team2-name">{{team2name}}</p>
+            <p class="team2-score" id="team2-score">{{team2score}}</p>
+        </div>
+        <div class="individual-score">
+            <p class="player">
+                <span class="player1-name" id="player1-name">{{batsmen1[0]}}&nbsp;</span>:<span class="player1-run" id="player1-run">{{batsmen1[1]}}&nbsp;</span>&nbsp;in&nbsp;<span class="player1-balls" id="player1-balls">{{batsmen1[2]}}&nbsp;</span> balls&nbsp;(&nbsp;<span class="player1-six" id="player1-six">{{batsmen1[4]}}</span>x6,&nbsp;&nbsp;<span class="player1-four" id="player1-four">{{batsmen1[3]}}</span>x4&nbsp;)
+            </p>
+            <p class="player">
+                <span class="player2-name" id="player2-name">{{batsmen2[0]}}&nbsp;</span>:<span class="player2-run" id="player2-run">{{batsmen2[1]}}&nbsp;</span>&nbsp;in&nbsp;<span class="player2-balls" id="player2-balls">{{batsmen1[2]}}&nbsp;</span>balls&nbsp;(&nbsp;<span class="player2-six" id="player2-six">{{batsmen1[4]}}</span>x6,&nbsp;&nbsp;<span class="player2-four" id="player2-four">{{batsmen1[3]}}</span>x4&nbsp;)
+            </p>
+            
+        </div>
+        </br>
+        <div id="match_status" style="width:300px">
+            <span class="status">Status: </span><span id="innings_status">{{innings_status}}</span></p>
+            <i href="javascript:void(0)"  onclick="showBowlers()" class="fa fa-toggle-down" id="bowlers_show"></i>
+            <i href="javascript:void(0)"  onclick="hideBowlers()" class="fa fa-toggle-up" style="display:none" id="bowlers_hide"></i>
 
+        </div>
+        </br></br>
+        <div id="bowlers" style="display:none">
+            <table class="table table-bordered" id="bowler_table">
+                <thead>
+                    <tr>
+                        <td>Bowler</td>
+                        <td>Runs</td>
+                        <td>Wickets</td>
+                        <td>Overs</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="bowler in bowlerStats">
+                        <td>{{bowler[0]}}</td>
+                        <td>{{bowler[3]}}</td>
+                        <td>{{bowler[4]}}</td>
+                        <td>{{bowler[1]}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-</br></br>
+        
+    </div>
+
 
 
 </body>
