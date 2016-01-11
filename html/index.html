@@ -19,7 +19,7 @@
     document.getElementById("appbody").style.height = "800px";
     document.getElementById("maincontainer").style.height = "800px";
     jQuery('#bowlers_show').toggle('show');
-    jQuery('#bowlers_hide').toggle('show');
+    document.getElementById('bowlers_hide').style.display = "block";
     }
     function hideBowlers() {
     window.resizeTo( 350, 520 );
@@ -46,6 +46,8 @@
         padding: 0;
         width:350px;
         height:520px; 
+        -webkit-app-region: drag;
+
         
     }
     p {
@@ -185,7 +187,7 @@
         <div id="match_status" style="width:300px">
             <span class="status">Status: </span><span id="innings_status">{{innings_status}}</span></p>
             <i href="javascript:void(0)"  onclick="showBowlers()" class="fa fa-toggle-down" id="bowlers_show"></i>
-            <i href="javascript:void(0)"  onclick="hideBowlers()" class="fa fa-toggle-up" style="display:none" id="bowlers_hide"></i>
+            <i href="javascript:void(0)"  onclick="hideBowlers()" class="fa fa-toggle-up" style="display:none;" id="bowlers_hide"></i>
 
         </div>
         </br></br>

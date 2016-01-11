@@ -19,7 +19,7 @@ var matches=[];
 var scrapedMatchData = [];
 
 var appWidth = 350;
-//window.moveTo(window.screen.availWidth - appWidth - 10,60);
+window.moveTo(window.screen.availWidth - appWidth - 10,60);
 
 url = 'http://www.espncricinfo.com/';
 
