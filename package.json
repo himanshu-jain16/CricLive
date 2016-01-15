@@ -1,12 +1,30 @@
 {
 	"name": "CricLive",
+	"description": "App for live cricket scores",
 	"main": "./html/index.html",
+	"keywords": [ "cricket", "node-webkit","scraping","angular-js" ],
     "window": {
-    "transparent": false,
-    "frame": false,
-    "toolbar": false,
-    "width":350,
-    "height":520
-  }
+	    "icon":"img/ball.png",
+	    "transparent": false,
+	    "frame": false,
+	    "toolbar": false,
+	    "width":350,
+	    "height":600,
+	    "max_width":350,
+	    "max_height":700,
+	    "min_width":350,
+	    "min_height":600
+	  },
+  "maintainers":[ {
+	   "name": "Himanshu Jain",
+	   "email": "himanshu.1691@gmail.com",
+	   "web": "https://github.com/himanshu1691"
+	}],
+	"repositories": [
+	   {
+	        "type": "git", 
+	        "url": "https://github.com/himanshu1691/CricLive.git"
+	   }
+	]
     
 }
