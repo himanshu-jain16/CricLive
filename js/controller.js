@@ -37,8 +37,11 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 
 
 	$scope.getMatchData = function(selectedmatchip){
-		var selectedmatch = {"matchurl":selectedmatchip};
+		$scope.selectedMatch = selectedmatchip;
+		if($scope.tickstat != "running"){
 		(function tick() {
+			$scope.tickstat = "running";
+			var selectedmatch = {"matchurl":$scope.selectedMatch};
 	 		$http.post('http://localhost:3001/getmatchdata',selectedmatch).success(function(response){
  			console.log(response);
  			console.log(response.bowling_table);
@@ -200,6 +203,7 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 			
 		});
 	 		})();
+	 		}
 	};
 
 	
@@ -208,7 +212,7 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 			if(!angular.isUndefined(newValue) && !angular.isUndefined(oldValue)){
 				console.log("oldValue Team1",oldValue);
 				console.log("newValue Team1",newValue);
-				if((newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 5)||(newValue[0] - oldValue[0] == 1)||(newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 4)){
+				if((newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 5)||(newValue[0] - oldValue[0] == 7)||(newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 4)){
 					if($scope.alertToggle)audio.play();
 				}
 				if(newValue[1] - oldValue[1] == 1)
@@ -219,7 +223,7 @@ cricLive.controller('MainController',['$scope','$http','$timeout',function($scop
 			if(!angular.isUndefined(newValue) && !angular.isUndefined(oldValue)){
 				console.log("oldValue Team2",oldValue);
 				console.log("newValue Team2",newValue);
-				if((newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 5)||(newValue[0] - oldValue[0] == 1)||(newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 4)){
+				if((newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 5)||(newValue[0] - oldValue[0] == 7)||(newValue[0] - oldValue[0] == 6)||(newValue[0] - oldValue[0] == 4)){
 					if($scope.alertToggle)audio.play();
 				}
 				if(newValue[1] - oldValue[1] == 1)

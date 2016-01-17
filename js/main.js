@@ -26,7 +26,6 @@ url = 'http://www.espncricinfo.com/';
 function getMatchUrl(callback) {
     request(url, function(error, response, html){
         if(!error){
-            //var matches = [];
             var $ = cheerio.load(html);
 
             var title, release, rating;
@@ -35,7 +34,6 @@ function getMatchUrl(callback) {
             $('.scoreline-list').first().filter(function(){
                 var data = $(this);
                 var numOfMatches = data.children().length;
-                //console.log("Number of Matches:  ",numOfMatches);
 
                 //GET URL FOR EACH MATCH
                 for(x=0;x<numOfMatches;x++)
@@ -75,19 +73,11 @@ function getMatchData(matchurl,callback) {
 
                 var nav = $('.tab-full-scorecard')[0]; // obtain reference to the underlying DOMElement
         
-               // click anchor link to "Modular code"
-                var ev = document.createEvent("MouseEvents");
-                ev.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                nav.dispatchEvent(ev);
-
-                $('.bowling-table').each(function () { bowlingtable.push($(this).html()); });
-
-                //console.log("inningsinfo",inningsinfo);
+               
 
                 return{innings_info:inningsinfo,
                         score_table:scoretable,
-                        recent_overs:recentovers,
-                        bowling_table:bowlingtable};
+                        recent_overs:recentovers};
               }, function (err,result) {
                 scrapedMatchData = result;
                 browser.exit();
@@ -100,9 +90,6 @@ function getMatchData(matchurl,callback) {
     });   
 }
 
-//Update cache every 60 secs.
-//setInterval(getMatchUrl, 10000);
-                            
 
 app.get('/getallmatches', function(req, res) {
     getMatchUrl(function(){
